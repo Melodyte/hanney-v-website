@@ -16,7 +16,7 @@ export default defineConfig({
         title: "Product",
         type: "document",
         fields: [
-          { name: "name", title: "Name", type: "string", validation: (Rule: any) => Rule.required() },
+          { name: "name", title: "Name", type: "string", validation: (Rule) => Rule.required() },
           { name: "slug", title: "Slug", type: "slug", options: { source: "name" } },
           { name: "description", title: "Description", type: "text" },
           { name: "price", title: "Price", type: "string" },
