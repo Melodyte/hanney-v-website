@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 
@@ -8,10 +9,13 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-black/60 z-10" />
-      <img
+      <Image
         src="/images/Works/photo_2026-05-21 06.13.24.jpeg"
-        alt="Hanney-V Fashion"
-        className="absolute inset-0 w-full h-full object-cover"
+        alt="Hanney-V luxury fashion showcase featuring bespoke tailoring"
+        fill
+        className="object-cover"
+        sizes="100vw"
+        priority
       />
       <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
         <motion.div
@@ -19,10 +23,13 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <img
+          <Image
             src="/images/Logo/photo_2026-05-21 06.13.30.jpeg"
-            alt="Hanney-V Logo"
+            alt="Hanney-V brand logo"
+            width={160}
+            height={80}
             className="h-20 w-auto object-contain mx-auto mb-6"
+            priority
           />
         </motion.div>
         <motion.h1

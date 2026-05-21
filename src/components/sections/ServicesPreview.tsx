@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { services } from "@/lib/data";
 import Button from "@/components/ui/Button";
@@ -36,10 +37,12 @@ export default function ServicesPreview() {
               className="group relative overflow-hidden bg-gray-50"
             >
               <div className="relative h-64 overflow-hidden">
-                <img
+                <Image
                   src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  alt={`${service.title} - Hanney-V fashion service`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">

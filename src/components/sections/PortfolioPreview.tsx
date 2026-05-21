@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { portfolioImages } from "@/lib/data";
 import Button from "@/components/ui/Button";
@@ -37,10 +38,12 @@ export default function PortfolioPreview() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative overflow-hidden aspect-[3/4] cursor-pointer"
             >
-              <img
+              <Image
                 src={item.src}
                 alt={item.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-500 flex items-end">
                 <div className="p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">

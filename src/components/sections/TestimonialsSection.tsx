@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { testimonials } from "@/lib/data";
 
 export default function TestimonialsSection() {
@@ -44,11 +45,13 @@ export default function TestimonialsSection() {
                 &ldquo;{testimonial.text}&rdquo;
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-700">
-                  <img
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-700 relative">
+                  <Image
                     src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover"
+                    alt={`${testimonial.name} client photo`}
+                    fill
+                    className="object-cover"
+                    sizes="40px"
                   />
                 </div>
                 <div>

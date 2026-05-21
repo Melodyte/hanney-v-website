@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { ToastProvider } from "@/components/ui/Toast";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/shared/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,7 +16,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Hanney-V | Where Tradition Meets Tailored Elegance",
+  title: {
+    default: "Hanney-V | Where Tradition Meets Tailored Elegance",
+    template: "%s | Hanney-V",
+  },
   description:
     "Luxury fashion brand specializing in bespoke menswear, bridal couture, and cultural event styling in Akure, Nigeria.",
   keywords: [
@@ -37,6 +38,17 @@ export const metadata: Metadata = {
     description:
       "Bespoke menswear, bridal couture, and cultural event styling.",
     type: "website",
+    siteName: "Hanney-V",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hanney-V | Luxury Fashion Brand",
+    description:
+      "Bespoke menswear, bridal couture, and cultural event styling.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -51,10 +63,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );
