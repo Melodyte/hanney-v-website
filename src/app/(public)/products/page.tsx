@@ -12,15 +12,20 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function ProductsPage() {
-  const supabase = await createClient();
+  let items: Product[] = [];
 
-  const { data: products } = await supabase
-    .from("products")
-    .select("*")
-    .eq("is_visible", true)
-    .order("created_at", { ascending: false });
+  try {
+    const supabase = await createClient();
+    const { data: products } = await supabase
+      .from("products")
+      .select("*")
+      .eq("is_visible", true)
+      .order("created_at", { ascending: false });
 
-  const items = (products as Product[] | null) || [];
+    items = (products as Product[] | null) || [];
+  } catch {
+    // Supabase not configured — show empty catalog
+  }
 
   // Extract unique categories
   const categories = Array.from(new Set(items.map((p) => p.category))).filter(Boolean);

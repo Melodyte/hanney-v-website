@@ -12,15 +12,20 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function BlogPage() {
-  const supabase = await createClient();
+  let blogPosts: BlogPost[] = [];
 
-  const { data: posts } = await supabase
-    .from("blog_posts")
-    .select("*")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false });
+  try {
+    const supabase = await createClient();
+    const { data: posts } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false });
 
-  const blogPosts = (posts as BlogPost[] | null) || [];
+    blogPosts = (posts as BlogPost[] | null) || [];
+  } catch {
+    // Supabase not configured — show empty blog
+  }
 
   // Extract unique categories
   const categories = Array.from(new Set(blogPosts.map((p) => p.category))).filter(Boolean);

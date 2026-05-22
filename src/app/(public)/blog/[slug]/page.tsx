@@ -14,6 +14,15 @@ interface BlogPostPageProps {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
+  
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return {
+      title: "Blog Post",
+      description: "Hanney-V blog post",
+    };
+  }
+
   const supabase = await createClient();
 
   const { data: post } = await supabase
@@ -35,6 +44,34 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
+  
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return (
+      <div className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="font-heading text-3xl md:text-4xl text-neutral-950 mb-4">
+              Database Not Configured
+            </h1>
+            <p className="text-neutral-600 mb-6">
+              Supabase environment variables are not configured. Please set up your Supabase project.
+            </p>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm text-gold-600 hover:text-gold-700 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Blog
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const supabase = await createClient();
 
   const { data: post } = await supabase

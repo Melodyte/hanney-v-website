@@ -64,6 +64,27 @@ function StatCard({ title, value, icon, description }: StatCardProps) {
 }
 
 export default async function AdminDashboardPage() {
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Card variant="elevated" padding="lg">
+          <div className="text-center max-w-md">
+            <h2 className="text-xl font-heading font-bold text-neutral-900 mb-2">
+              Database Not Configured
+            </h2>
+            <p className="text-neutral-600 mb-4">
+              Supabase environment variables are not configured. Please set up your Supabase project and add the required environment variables.
+            </p>
+            <p className="text-sm text-neutral-500">
+              Required: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+            </p>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   const supabase = await createClient();
 
   // Calculate date 7 days ago

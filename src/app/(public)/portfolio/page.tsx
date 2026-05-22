@@ -12,14 +12,19 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const supabase = await createClient();
+  let items: PortfolioItem[] = [];
 
-  const { data: portfolioItems } = await supabase
-    .from("portfolio_items")
-    .select("*")
-    .order("sort_order", { ascending: true });
+  try {
+    const supabase = await createClient();
+    const { data: portfolioItems } = await supabase
+      .from("portfolio_items")
+      .select("*")
+      .order("sort_order", { ascending: true });
 
-  const items = (portfolioItems as PortfolioItem[] | null) || [];
+    items = (portfolioItems as PortfolioItem[] | null) || [];
+  } catch {
+    // Supabase not configured — show empty gallery
+  }
 
   return (
     <div className="py-16 md:py-24">
