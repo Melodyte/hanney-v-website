@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+
+// Prevent static generation for admin pages
+export const dynamic = 'force-dynamic';
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "@/components/ui/Button";

@@ -4,8 +4,6 @@ import { createClient } from "@/lib/supabase/server";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hanney-v.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
-
   // Static public pages
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -57,6 +55,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
   ];
+
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    // Return only static pages if Supabase is not configured
+    return staticPages;
+  }
+
+  const supabase = await createClient();
 
   // Fetch published blog post slugs
   const { data: blogPosts } = await supabase
